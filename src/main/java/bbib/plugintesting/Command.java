@@ -22,7 +22,7 @@ public class Command extends BukkitCommand {
     public boolean execute(@NotNull org.bukkit.command.CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         if(sender instanceof Player player)
         {
-            player.teleport(getRandomLocation(player));
+            player.teleport(getRandomLocation(player).add(0, 1, 0));
         }
         return false;
     }
@@ -54,9 +54,9 @@ public class Command extends BukkitCommand {
     public boolean isSafeLocation(Location location)
     {
         // 안전한 위치인지 확인하는 코드
-        return location.getBlock().getType().isAir()
+        return location.getBlock().getRelative(0,2,0).getType().isAir()
                 && location.getBlock().getRelative(0, 1, 0).getType().isAir()
-                && !location.getBlock().getRelative(0,-1,0).isPassable();
+                && !location.getBlock().isPassable();
     }
 }
 
