@@ -29,7 +29,7 @@ public class Command extends BukkitCommand {
 
     public Location getRandomLocation(Player player)
     {
-        // 랜덤한 위치로 텔레포트하는 코드
+        // 랜덤한 위치의 좌표를 return 하는 코드
         World world = player.getWorld();
 
         double randomX=0;
@@ -40,7 +40,7 @@ public class Command extends BukkitCommand {
             randomZ = random.nextInt(20000) - 10000 + 0.5;
             int highestY = world.getHighestBlockYAt((int) randomX, (int) randomZ);
             Bukkit.getLogger().info("랜덤 좌표:" + randomX + ", " + randomZ + ", " + highestY + "에서 안전한 위치 탐색 중...");
-            for (int i = highestY; i > -64; i--) {
+            for (int i = highestY; i > world.getMinHeight(); i--) {
                 Location tempLocation = new Location(world, randomX, i, randomZ);
                 if (isSafeLocation(tempLocation)) {
                     Bukkit.getLogger().info("안전한 위치: " + tempLocation);
@@ -58,5 +58,7 @@ public class Command extends BukkitCommand {
                 && location.getBlock().getRelative(0, 1, 0).getType().isAir()
                 && !location.getBlock().isPassable();
     }
+
+
 }
 
