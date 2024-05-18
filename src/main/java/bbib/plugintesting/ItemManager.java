@@ -15,55 +15,19 @@ public class ItemManager {
 
     private static final NamespacedKey KEY= new NamespacedKey("plugin", "type");
 
-    public static ItemStack createCustomArrowType1(int amount) {
+    public static ItemStack createCustomArrowType(int amount,int arrowType, String name, String lore1, String lore2) {
         // 화살을 생성하는 코드
         ItemStack customArrow = new ItemStack(Material.ARROW, amount);
         ItemMeta customArrowMeta = customArrow.getItemMeta();
-        customArrowMeta.setDisplayName("기본화살");
+        customArrowMeta.setDisplayName(name);
 
         List<String> lore = new ArrayList<>();
-        lore.add("화살 타입 1");
-        lore.add("한칸 제거");
+        lore.add(lore1);
+        lore.add(lore2);
         customArrowMeta.setLore(lore);
 
         PersistentDataContainer data = customArrowMeta.getPersistentDataContainer();
-        data.set(KEY, PersistentDataType.INTEGER, 1);
-        customArrow.setItemMeta(customArrowMeta);
-
-        return customArrow;
-    }
-
-    public static ItemStack createCustomArrowType2(int amount) {
-        // 화살을 생성하는 코드
-        ItemStack customArrow = new ItemStack(Material.ARROW, amount);
-        ItemMeta customArrowMeta = customArrow.getItemMeta();
-        customArrowMeta.setDisplayName("가로 화살");
-
-        List<String> lore = new ArrayList<>();
-        lore.add("화살 타입 2");
-        lore.add("좌우 추가 제거");
-        customArrowMeta.setLore(lore);
-
-        PersistentDataContainer data = customArrowMeta.getPersistentDataContainer();
-        data.set(KEY, PersistentDataType.INTEGER, 2);
-        customArrow.setItemMeta(customArrowMeta);
-
-        return customArrow;
-    }
-
-    public static ItemStack createCustomArrowType3(int amount) {
-        // 화살을 생성하는 코드
-        ItemStack customArrow = new ItemStack(Material.ARROW, amount);
-        ItemMeta customArrowMeta = customArrow.getItemMeta();
-        customArrowMeta.setDisplayName("세로 화살");
-
-        List<String> lore = new ArrayList<>();
-        lore.add("화살 타입 3");
-        lore.add("상하 추가 제거");
-        customArrowMeta.setLore(lore);
-
-        PersistentDataContainer data = customArrowMeta.getPersistentDataContainer();
-        data.set(KEY, PersistentDataType.INTEGER, 3);
+        data.set(KEY, PersistentDataType.INTEGER, arrowType);
         customArrow.setItemMeta(customArrowMeta);
 
         return customArrow;
@@ -71,9 +35,9 @@ public class ItemManager {
 
     public void giveArrow(Player player, int amount1, int amount2, int amount3) {
         // 화살을 생성하는 코드
-        player.getInventory().addItem(createCustomArrowType1(amount1));
-        player.getInventory().addItem(createCustomArrowType2(amount2));
-        player.getInventory().addItem(createCustomArrowType3(amount3));
+        player.getInventory().addItem(createCustomArrowType(amount1,1, "기본화살", "화살 타입 1", "한칸 제거"));
+        player.getInventory().addItem(createCustomArrowType(amount2,2, "가로 화살", "화살 타입 2", "좌우 추가 제거"));
+        player.getInventory().addItem(createCustomArrowType(amount3, 3,"세로 화살", "화살 타입 3", "상하 추가 제거"));
     }
 
     public void giveBow(Player player) {

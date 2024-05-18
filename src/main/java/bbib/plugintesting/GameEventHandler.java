@@ -14,7 +14,6 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class GameEventHandler implements Listener {
     private final GameManager gameManager;
-
     private Location tempLocation;
 
     public GameEventHandler(GameManager gameManager) {

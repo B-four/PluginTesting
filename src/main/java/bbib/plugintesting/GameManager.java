@@ -26,6 +26,7 @@ public class GameManager implements Listener{
     private int arrowType;
     private Instant startTime;
     private Instant endTime;
+    private boolean isGameRunning = false;
 
     public int getArrowType() {
         return arrowType;
@@ -42,10 +43,10 @@ public class GameManager implements Listener{
     }
 
     public void startGame(Player player, int targetSize, int type1ArrowAmount, int type2ArrowAmount, int type3ArrowAmount) {
-/*        if(targetList.isEmpty()) {
+        if(isGameRunning) {
             Bukkit.broadcast(Component.text("게임이 이미 시작되었습니다."));
             return;
-        }*/
+        }
         this.startTime = Instant.now();
         playerManager.setPlayer(player);
         TARGET_SIZE = targetSize;
@@ -53,10 +54,12 @@ public class GameManager implements Listener{
         itemManager.giveBow(player);
         createTarget();
         createFence();
+        isGameRunning = true;
     }
 
     public void endGame() {
         this.endTime = Instant.now();
+        isGameRunning = false;
         Bukkit.broadcast(Component.text("남은 화살: "+playerManager.leftArrowAmount()+"개"+", 남은 타겟: "+targetList.size()+"개"));
         clearTargets();
         clearInventory();
