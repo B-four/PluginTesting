@@ -32,7 +32,7 @@ public class GameEventHandler implements Listener {
                         gameManager.removeTargetByType(event.getHitBlock(), arrowType);
                     }
                     else {
-                        Bukkit.broadcastMessage("너무 가까워요");
+                        Bukkit.broadcastMessage("20칸 이상에서만 타격이 가능합니다. \n지금칸수: "+distance+"칸");
                     }
                 }
             }
