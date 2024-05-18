@@ -128,7 +128,7 @@ public class GameManager implements Listener{
 
         boolean useXAxis = Math.abs(playerDirection.getX()) > Math.abs(playerDirection.getZ());
 
-        Location targetLocation = playerLocation.clone().add(playerDirection.multiply(0)); // 플레이어가 바라보는 방향으로 20블록 앞
+        Location targetLocation = playerLocation.clone().add(playerDirection.multiply(1));
         if(targetLocation.getBlock().getType() != Material.AIR) {
             targetLocation = getTopBlockLocation(targetLocation);
         }

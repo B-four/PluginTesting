@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.ProjectileHitEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -64,4 +65,5 @@ public class GameEventHandler implements Listener {
         ItemStack[] items = inventory.getContents();
         inventory.setContents(items); // 인벤토리를 강제로 업데이트
     }
+
 }
