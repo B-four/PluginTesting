@@ -28,6 +28,10 @@ public class GameManager implements Listener{
     private Instant endTime;
     private boolean isGameRunning = false;
 
+    public List<Block> getTargetList() {
+        return targetList;
+    }
+
     public int getArrowType() {
         return arrowType;
     }

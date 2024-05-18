@@ -26,10 +26,11 @@ public class GameEventHandler implements Listener {
             int arrowType = gameManager.getArrowType();
             if (event.getHitBlock() != null) {
                 int distance = gameManager.calculateDistance(event.getHitBlock().getLocation(), tempLocation);
-                if (arrowType != 0) {
+                if (arrowType != 0 && gameManager.getTargetList().contains(event.getHitBlock())) {
                     if(distance>=20)
                     {
                         gameManager.removeTargetByType(event.getHitBlock(), arrowType);
+                        event.getEntity().remove();
                     }
                     else {
                         Bukkit.broadcastMessage("20칸 이상에서만 타격이 가능합니다. \n지금칸수: "+distance+"칸");
@@ -37,7 +38,6 @@ public class GameEventHandler implements Listener {
                 }
             }
         }
-        event.getEntity().remove();
         if (gameManager.isGameEnd()) {
             gameManager.endGame();
         }
