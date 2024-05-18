@@ -11,6 +11,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class WorldManager{
     public void createPeacefulFlatWorld(String worldName, Player player) {
+        if(Bukkit.getWorld(worldName) != null) {
+            player.teleport(Bukkit.getWorld(worldName).getSpawnLocation());
+            return;
+        }
+
         WorldCreator worldCreator = new WorldCreator(worldName);
         worldCreator.type(WorldType.FLAT);
 
