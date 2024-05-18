@@ -3,6 +3,8 @@ package bbib.plugintesting;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -11,18 +13,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Command extends BukkitCommand {
+public class Command implements CommandExecutor {
     private Random random;
-    public Command(@NotNull String name) {
-        super(name);
-        this.random = new Random();
+    private final GameManager gameManager;
+    private final WorldManager worldManager;
+
+    public Command(GameManager gameManager, WorldManager worldManager) {
+        this.gameManager = gameManager;
+        this.worldManager = worldManager;
     }
 
+
     @Override
-    public boolean execute(@NotNull org.bukkit.command.CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
-        if(sender instanceof Player player)
-        {
-            player.teleport(getRandomLocation(player).add(0, 1, 0));
+    public boolean onCommand(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+        if (sender instanceof Player) {
+            Player player = (Player) sender;
+            if (command.getName().equalsIgnoreCase("startgame")) {
+                gameManager.startGame(player, 7, 30, 10, 10);
+                return true;
+            } else if (command.getName().equalsIgnoreCase("endgame")) {
+                gameManager.endGame();
+                return true;
+            } else if (command.getName().equalsIgnoreCase("newworld")){
+                worldManager.createPeacefulFlatWorld("emptyWord", player);
+                return true;
+            }
         }
         return false;
     }
@@ -34,6 +49,7 @@ public class Command extends BukkitCommand {
 
         double randomX=0;
         double randomZ=0;
+
         List<Location> randomLocations = new ArrayList<>();
         while (randomLocations.isEmpty()) {
             randomX = random.nextInt(20000) - 10000 + 0.5;
@@ -58,7 +74,5 @@ public class Command extends BukkitCommand {
                 && location.getBlock().getRelative(0, 1, 0).getType().isAir()
                 && !location.getBlock().isPassable();
     }
-
-
 }
 

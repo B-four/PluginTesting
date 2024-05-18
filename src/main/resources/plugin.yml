@@ -3,3 +3,13 @@ version: '${version}'
 main: bbib.plugintesting.PluginTesting
 api-version: '1.20'
 authors: [bbib]
+commands:
+  startgame:
+    description: Start game
+    usage: /<command>
+  endgame:
+    description: End game
+    usage: /<command>
+  newworld:
+    description: Create new world
+    usage: /<command>
