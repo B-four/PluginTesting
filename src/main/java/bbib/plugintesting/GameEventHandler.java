@@ -26,21 +26,19 @@ public class GameEventHandler implements Listener {
 
     @EventHandler
     public void hitTargetEvent(ProjectileHitEvent event) {
-
-        if (event.getEntity() instanceof Arrow arrow) {
+        if (event.getEntity() instanceof Arrow) {
             int arrowType = gameManager.getArrowType();
             if (event.getHitBlock() != null) {
                 int distance = gameManager.calculateDistance(event.getHitBlock().getLocation(), tempLocation);
-                if(distance>=20)
-                {
-                    if (arrowType != 0) {
+                if (arrowType != 0) {
+                    if(distance>=20)
+                    {
                         gameManager.removeTargetByType(event.getHitBlock(), arrowType);
                     }
+                    else {
+                        Bukkit.broadcastMessage("너무 가까워요");
+                    }
                 }
-                else {
-                    Bukkit.broadcastMessage("너무 가까워요");
-                }
-
             }
         }
         event.getEntity().remove();
