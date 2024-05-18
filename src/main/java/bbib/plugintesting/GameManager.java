@@ -105,18 +105,25 @@ public class GameManager implements Listener{
 
         boolean useXAxis = Math.abs(playerDirection.getX()) > Math.abs(playerDirection.getZ());
 
-        if(useXAxis){
-            playerDirection = new Vector(playerDirection.getX(),0,0);
-        }
-        else {
-            playerDirection = new Vector(0,0,playerDirection.getZ());
-        }
-
-        Location targetLocation = playerLocation.clone().add(playerDirection.multiply(21)); // 플레이어가 바라보는 방향으로 20블록 앞
+        Location targetLocation = playerLocation.clone(); // 플레이어가 바라보는 방향으로 20블록 앞
 
         if(targetLocation.getBlock().getType() != Material.AIR) {
             targetLocation = getTopBlockLocation(targetLocation);
         }
+
+        if(useXAxis){
+            if(playerDirection.getX() > 0)
+                targetLocation = targetLocation.add(20,0,0);
+            else
+                targetLocation = targetLocation.add(-20,0,0);
+        }
+        else {
+            if(playerDirection.getZ() > 0)
+                targetLocation = targetLocation.add(0,0,20);
+            else
+                targetLocation = targetLocation.add(0,0,-20);
+        }
+
 
         for (int i = 0; i < TARGET_SIZE; i++) {
             for (int j = 0; j < TARGET_SIZE; j++) {

@@ -29,8 +29,8 @@ public class GameEventHandler implements Listener {
                 if (arrowType != 0 && gameManager.getTargetList().contains(event.getHitBlock())) {
                     if(distance>=20)
                     {
-                        gameManager.removeTargetByType(event.getHitBlock(), arrowType);
                         event.getEntity().remove();
+                        gameManager.removeTargetByType(event.getHitBlock(), arrowType);
                     }
                     else {
                         Bukkit.broadcastMessage("20칸 이상에서만 타격이 가능합니다. \n지금칸수: "+distance+"칸");
